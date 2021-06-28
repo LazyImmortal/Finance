@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
+    @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserByUsername(String username, String password) {
         UserExample userExample =new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserByEmail(String email, String password) {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
