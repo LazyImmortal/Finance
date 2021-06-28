@@ -31,7 +31,7 @@ public class LoginController {
     @GetMapping("/loginVerifyUsername/{username}")
     @ResponseBody
     public Msg loginVerifyUsername(@PathVariable("username") String username) {
-        User user = userService.selectUserByTerms(username, null);
+        User user = userService.selectUserByUsername(username, null);
         if (user != null) {
             return Msg.success();
         }
@@ -45,7 +45,7 @@ public class LoginController {
     @GetMapping("/loginVerifyEmail/{email}")
     @ResponseBody
     public Msg loginVerifyEmail(@PathVariable("email") String email) {
-        User user = userService.selectUserByTerms(email, null);
+        User user = userService.selectUserByEmail(email, null);
         if (user != null) {
             return Msg.success();
         }
@@ -61,7 +61,7 @@ public class LoginController {
     public Msg verifyLogin(@RequestParam("username") String username, @RequestParam("password") String password,
                            HttpSession session) {
 
-        User loginUser = userService.selectUserByTerms(username, password);
+        User loginUser = userService.selectUserByUsername(username, password);
         if (loginUser != null) {
             //获取当前用户
             Subject subject = SecurityUtils.getSubject();

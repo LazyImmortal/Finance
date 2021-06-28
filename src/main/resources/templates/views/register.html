@@ -65,8 +65,8 @@
                           aria-hidden="true"></span>
                 </div>
                 <div class="form-group has-feedback feedback-left">
-                    <input type="text" placeholder="请输入您的邮箱" class="form-control"
-                           name="username" id="email"/><span class="help-block"></span>
+                    <input type="email" placeholder="请输入您的邮箱" class="form-control"
+                           name="email" id="email"/><span class="help-block"></span>
                     <span class="mdi mdi-account form-control-feedback"
                           aria-hidden="true"></span>
                 </div>
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button id="login_btn" class="btn btn-block btn-primary"
+                    <button id="register_btn" class="btn btn-block btn-primary"
                             type="button">注册
                     </button>
                 </div>
@@ -134,7 +134,7 @@
             drawPic(show_num);
         });
         $("#captcha").blur(verifyCaptcha);
-        $("#login_btn").mousedown(verifyLogin);
+        $("#register_btn").mousedown(verifyLogin);
         //回车注册
         $("body").keyup(function (event) {
             if (event.keyCode === 13) {//keyCode=13是回车键
@@ -152,17 +152,17 @@
         if (captcha_num == "") {
             $("#captcha_note_parent").addClass("has-error");
             $("#captcha_note_child").text("验证码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         } else if (captcha_num == real_num) {
             $("#captcha_note_parent").addClass("has-success");
             $("#captcha_note_child").text("验证码正确");
-            $("#login_btn").removeAttr("disabled");
+            $("#register_btn").removeAttr("disabled");
             return true;
         } else {
             $("#captcha_note_parent").addClass("has-error");
             $("#captcha_note_child").text("验证码错误");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
     }
@@ -173,23 +173,20 @@
         var lock = true;
         if (username === "") {
             show_validate_msg("#username", "error", "用户名为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         } else {
             $.ajax({
-                url: "/login/loginVerifyUsername/"+username,
+                url: "/login/loginVerifyUsername/" + username,
                 type: "GET",
                 success: function (result) {
                     if (result.code === 100) {
-                        show_validate_msg("#username", "error",
-                            "用户"+username+"已存在");
-                        $("#login_btn")
-                            .attr("disabled", "disabled");
+                        show_validate_msg("#username", "error", "用户" + username + "已存在");
+                        $("#register_btn").attr("disabled", "disabled");
                         lock = false;
                     } else {
-                        show_validate_msg("#username", "success",
-                            "欢迎" + username + "注册");
-                        $("#login_btn").removeAttr("disabled");
+                        show_validate_msg("#username", "success", "欢迎" + username + "注册");
+                        $("#register_btn").removeAttr("disabled");
                     }
                 }
             });
@@ -200,26 +197,28 @@
     function verifyEmail() {
         //发送ajax请求校验邮箱是否可用
         var email = document.getElementById("email").value;
+        var register = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.]){1,2}[A-Za-z\d]{2,5}$/g;
         var lock = true;
         if (email === "") {
             show_validate_msg("#email", "error", "邮箱为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
+            return false;
+        } else if (!register.test(email)) {
+            show_validate_msg("#email", "error", "请输入正确的邮箱格式(不含汉字)");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         } else {
             $.ajax({
-                url: "/login/loginVerifyEmail/"+email,
+                url: "/login/loginVerifyEmail/" + email,
                 type: "GET",
                 success: function (result) {
                     if (result.code === 100) {
-                        show_validate_msg("#email", "error",
-                            "邮箱"+email+"已存在");
-                        $("#login_btn")
-                            .attr("disabled", "disabled");
+                        show_validate_msg("#email", "error", "邮箱" + email + "已存在");
+                        $("#register_btn").attr("disabled", "disabled");
                         lock = false;
                     } else {
-                        show_validate_msg("#email", "success",
-                            "欢迎" + email + "注册");
-                        $("#login_btn").removeAttr("disabled");
+                        show_validate_msg("#email", "success", "欢迎" + email + "注册");
+                        $("#register_btn").removeAttr("disabled");
                     }
                 }
             });
@@ -233,28 +232,28 @@
         var repassword = document.getElementById("repassword").value;
         if (repassword === "") {
             show_validate_msg("#repassword", "error", "重复密码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         } else if (password===""){
             show_validate_msg("#repassword", "error", "上一项密码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }else{
             if (repassword===password){
                 show_validate_msg("#repassword", "success",
                     "重复密码相同");
-                $("#login_btn").removeAttr("disabled");
+                $("#register_btn").removeAttr("disabled");
                 return true;
             }else{
                 show_validate_msg("#repassword", "error", "两次密码不相同");
-                $("#login_btn").attr("disabled", "disabled");
+                $("#register_btn").attr("disabled", "disabled");
                 return false;
             }
         }
     }
 
     function removeLoginDisabled() {
-        $("#login_btn").removeAttr("disabled");
+        $("#register_btn").removeAttr("disabled");
     }
 
     function verifyLogin() {
@@ -265,32 +264,32 @@
 
         if ($("#username").val() == "") {
             show_validate_msg("#username", "error", "用户名为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
 
         if ($("#email").val() == "") {
             show_validate_msg("#email", "error", "邮箱为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
 
         if ($("#password").val() == "") {
             show_validate_msg("#password", "error", "密码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
 
         if ($("#repassword").val() == "") {
             show_validate_msg("#repassword", "error", "重复密码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
 
         if ($("#captcha").val() == "") {
             $("#captcha_note_parent").addClass("has-error");
             $("#captcha_note_child").text("验证码为空");
-            $("#login_btn").attr("disabled", "disabled");
+            $("#register_btn").attr("disabled", "disabled");
             return false;
         }
 
@@ -313,9 +312,8 @@
                         //alert(url);
                         location.href = url;
                     } else {
-                        show_validate_msg("#password", "error",
-                            "密码错误");
-                        $("#login_btn")
+                        show_validate_msg("#password", "error", "密码错误");
+                        $("#register_btn")
                             .attr("disabled", "disabled");
                     }
                 }

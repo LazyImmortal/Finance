@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    User selectUserByTerms(String username, String password);
+    User selectUserByUsername(String username, String password);
+
+    User selectUserByEmail(String email, String password);
 
     List<User> selectUserByStatusDesc();
 

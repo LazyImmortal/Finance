@@ -44,7 +44,7 @@ public class UserRealm extends AuthorizingRealm {
         Subject subject = SecurityUtils.getSubject();
 
         String currentUserUsername = (String) subject.getPrincipal();
-        User user = userService.selectUserByTerms(currentUserUsername, null);
+        User user = userService.selectUserByUsername(currentUserUsername, null);
         if (user!=null){
             info.addRole("user");
             List<UserPermissions> list = userPermissionsService.selectUserPermissionsByUserId(1);
@@ -76,7 +76,7 @@ public class UserRealm extends AuthorizingRealm {
 
         //从token中取到用户名再去查用户密码
         //User user = userService.queryUserByName(userToken.getUsername());
-        User user = userService.selectUserByTerms(userToken.getUsername(), null);
+        User user = userService.selectUserByUsername(userToken.getUsername(), null);
         if (user != null) {
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();

@@ -65,7 +65,7 @@ public class UserController {
         User user = userService.selectUserById(Integer.valueOf(id));
         String oldpwd = request.getParameter("oldpwd");
         String newpwd = request.getParameter("newpwd");
-        User verifyExistUser = userService.selectUserByTerms(user.getUsername(), oldpwd);
+        User verifyExistUser = userService.selectUserByUsername(user.getUsername(), oldpwd);
         if (verifyExistUser != null) {
             user.setPassword(newpwd);
 

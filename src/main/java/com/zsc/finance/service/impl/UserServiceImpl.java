@@ -18,13 +18,31 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public User selectUserByTerms(String username, String password) {
+    public User selectUserByUsername(String username, String password) {
         UserExample userExample =new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
         if (username!=null){
             criteria.andUsernameEqualTo(username);
         }
         if (password!=null){
+            criteria.andPasswordEqualTo(password);
+        }
+        List<User> list = userMapper.selectByExample(userExample);
+        if ("[]".equals(list.toString())){
+            return null;
+        }else {
+            return list.get(0);
+        }
+    }
+
+    @Override
+    public User selectUserByEmail(String email, String password) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (email != null){
+            criteria.andEmailEqualTo(email);
+        }
+        if (password != null){
             criteria.andPasswordEqualTo(password);
         }
         List<User> list = userMapper.selectByExample(userExample);
@@ -64,7 +82,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserById(Integer id) {
-        System.out.println("selectUserById执行");
         User user = userMapper.selectByPrimaryKey(id);
         return user;
     }
