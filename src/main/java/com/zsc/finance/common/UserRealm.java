@@ -1,4 +1,4 @@
-package com.zsc.finance.common.shiro;
+package com.zsc.finance.common;
 
 
 import com.zsc.finance.entity.Admin;
@@ -45,7 +45,7 @@ public class UserRealm extends AuthorizingRealm {
 
         String currentUserUsername = (String) subject.getPrincipal();
         User user = userService.selectUserByUsername(currentUserUsername, null);
-        if (user!=null){
+        if (user != null){
             info.addRole("user");
             List<UserPermissions> list = userPermissionsService.selectUserPermissionsByUserId(1);
             for (UserPermissions up:list) {
@@ -75,7 +75,6 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
 
         //从token中取到用户名再去查用户密码
-        //User user = userService.queryUserByName(userToken.getUsername());
         User user = userService.selectUserByUsername(userToken.getUsername(), null);
         if (user != null) {
             Subject currentSubject = SecurityUtils.getSubject();
@@ -88,7 +87,7 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         Admin admin = adminService.selectAdminByTerms(userToken.getUsername(), null);
-        if (admin!=null){
+        if (admin != null){
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();
             admin.setStatus(1);

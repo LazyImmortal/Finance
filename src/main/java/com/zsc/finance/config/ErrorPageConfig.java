@@ -1,4 +1,4 @@
-package com.zsc.finance.common;
+package com.zsc.finance.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

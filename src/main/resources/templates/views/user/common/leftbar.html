@@ -11,13 +11,13 @@
 <aside class="lyear-layout-sidebar" id="leftbaraside">
     <div id="logo" class="sidebar-header">
         <a class="navbar-brand" style="font-size: 20px"
-           th:href="@{/user/index.html}">个人理财系统</a>
+           th:href="@{/user}">聚宝盆</a>
     </div>
     <div class="lyear-layout-sidebar-scroll">
         <nav class="sidebar-main">
             <ul class="nav nav-drawer">
                 <li class="nav-item" th:class="${activeUrl=='indexActive'?'nav-item active':'nav-item'}"><a
-                        th:href="@{/user/index.html}"><i
+                        th:href="@{/user}"><i
                         class="mdi mdi-home"></i>系统首页</a></li>
                 <li shiro:hasPermission="user:finance" class="nav-item nav-item-has-subnav"
                     th:class="${activeUrl1=='financeActive'?'nav-item nav-item-has-subnav active open':'nav-item nav-item-has-subnav'}">

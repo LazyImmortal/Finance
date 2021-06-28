@@ -1,4 +1,4 @@
-package com.zsc.finance.common;
+package com.zsc.finance.config;
 
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -31,14 +31,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //项目运行后直接访问或访问index.html（不存在index.html页面）界面跳转到login登录界面
-        registry.addViewController("/").setViewName("login");
-//        registry.addViewController("/tologin.html").setViewName("login");
-        registry.addViewController("/index.html").setViewName("login");
-        registry.addViewController("/toregister.html").setViewName("register");
-
-        //登录成功后跳转到index.html（不存在index.html页面，但界面路径显示访问的是index.html） 然后视图解析到内部main.html界面
-        //registry.addViewController("/admin/index.html").setViewName("admin/main");
-       //registry.addViewController("/user/index.html").setViewName("user/main");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/register").setViewName("register");
     }
 
     //配置拦截器

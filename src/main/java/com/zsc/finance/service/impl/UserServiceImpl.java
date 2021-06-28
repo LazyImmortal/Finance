@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserByUsername(String username, String password) {
-        UserExample userExample =new UserExample();
+        UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
-        if (username!=null){
+        if (username != null){
             criteria.andUsernameEqualTo(username);
         }
-        if (password!=null){
+        if (password != null){
             criteria.andPasswordEqualTo(password);
         }
         List<User> list = userMapper.selectByExample(userExample);

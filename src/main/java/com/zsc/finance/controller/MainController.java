@@ -42,27 +42,47 @@ public class MainController {
         return "error/500";
     }
 
+    /**
+     * 首页
+     * @param session
+     * @return
+     */
+    @GetMapping("/")
+    public String Index(HttpSession session){
+        //TODO (用户和管理员同时登陆)
+        if (session.getAttribute("loginUser") !=null &&session.getAttribute("loginAdmin")!=null){
+            return "redirect:/logout";
+        }
+
+        if (session.getAttribute("loginUser")!=null){
+            return "redirect:/user";
+        }
+        if (session.getAttribute("loginAdmin")!=null){
+            return "redirect:/admin";
+        }
+        return "redirect:/login";
+    }
 
     /**
      * 错误界面返回
      * @param session
      * @return
      */
-    @GetMapping("/toindex.html")
+    @GetMapping("/index")
     public String toIndex(HttpSession session){
 
         //TODO (用户和管理员同时登陆)
-        if (session.getAttribute("loginUser")!=null&&session.getAttribute("loginAdmin")!=null){
-            return "redirect:/index.html";
+        if (session.getAttribute("loginUser") !=null &&session.getAttribute("loginAdmin")!=null){
+            return "redirect:/logout";
         }
 
         if (session.getAttribute("loginUser")!=null){
-            return "redirect:/user/index.html";
+            return "redirect:/user";
         }
         if (session.getAttribute("loginAdmin")!=null){
-            return "redirect:/admin/index.html";
+            return "redirect:/admin";
         }
-        return "redirect:/index.html";
+        return "redirect:/login";
     }
 
     /**
@@ -70,7 +90,7 @@ public class MainController {
      * @param model
      * @return
      */
-    @GetMapping("/admin/index.html")
+    @GetMapping("/admin")
     public String toAdminIndex(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                Model model){
@@ -93,7 +113,7 @@ public class MainController {
      * @param model
      * @return
      */
-    @GetMapping("/user/index.html")
+    @GetMapping("/user")
     public String toUserIndex(Model model){
         List<News> list = newsService.selectAllNews();
 
@@ -101,35 +121,5 @@ public class MainController {
         model.addAttribute("pageTopBarInfo","系统首页");
         model.addAttribute("activeUrl","indexActive");
         return "user/main";
-    }
-
-
-    /**
-     * 注销（只有正常退出的用户可以注销）
-     * @param session
-     * @return
-     */
-    @GetMapping("/logout")
-    public String logout(@RequestParam("logout")String logout, HttpSession session) {
-
-        if ("userLogout".equals(logout)){
-            User loginUser = (User) session.getAttribute("loginUser");
-            User user = userService.selectUserById(loginUser.getId());
-            user.setStatus(0);
-            userService.updateUser(user);
-            session.removeAttribute("loginUser");
-            System.out.println("logout==>"+user.getUsername()+"已退出系统");
-            return "login";
-        }
-        if ("adminLogout".equals(logout)){
-            Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
-            Admin admin =adminService.selectAdminById(loginAdmin.getId());
-            admin.setStatus(0);
-            adminService.updateAdmin(admin);
-            session.removeAttribute("loginAdmin");
-            System.out.println("logout==>"+admin.getUsername()+"已退出系统");
-            return "login";
-        }
-        return "login";
     }
 }

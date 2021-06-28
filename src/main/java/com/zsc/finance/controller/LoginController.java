@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -60,7 +61,7 @@ public class LoginController {
     @ResponseBody
     public Msg verifyLogin(@RequestParam("username") String username, @RequestParam("password") String password,
                            HttpSession session) {
-
+        System.out.println("login页面传递！");
         User loginUser = userService.selectUserByUsername(username, password);
         if (loginUser != null) {
             //获取当前用户
@@ -69,7 +70,7 @@ public class LoginController {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try {
                 subject.login(token);
-                return Msg.success().add("url", "/user/index.html");
+                return Msg.success().add("url", "/user");
             } catch (UnknownAccountException | IncorrectCredentialsException e) {
                 return Msg.fail();
             }
@@ -83,7 +84,7 @@ public class LoginController {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try {
                 subject.login(token);
-                return Msg.success().add("url", "/admin/index.html");
+                return Msg.success().add("url", "/admin");
             } catch (UnknownAccountException | IncorrectCredentialsException e) {
                 //model.addAttribute("msg","密码错误");
                 return Msg.fail();
@@ -95,6 +96,7 @@ public class LoginController {
     @PostMapping("/register")
     @ResponseBody
     public Msg register(@RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password) {
+        System.out.println("register执行完成");
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
