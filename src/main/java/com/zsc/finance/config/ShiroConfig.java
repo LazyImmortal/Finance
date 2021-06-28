@@ -45,17 +45,6 @@ public class ShiroConfig {
 //////        filterMap.put("/user/add","authc");
 //////        filterMap.put("/user/update","authc");
 //
-//        //过滤请求
-//        filterMap.put("/error/**", "anon");
-//        filterMap.put("/", "anon");
-//        filterMap.put("/index.html", "anon");
-//        filterMap.put("/register.html", "anon");
-//        filterMap.put("/login/**", "anon");
-//        filterMap.put("/asserts/**", "anon");
-//        filterMap.put("/bootstrap/**", "anon");
-//        filterMap.put("/images/**", "anon");
-//        filterMap.put("/lyear/**", "anon");
-//        filterMap.put("/js/**", "anon");
 //        //对所有请求认证
 //        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
 //        filterMap.put("/**", "authc");
@@ -63,15 +52,6 @@ public class ShiroConfig {
 //
 ////        filterMap.put("/user/*", "authc");
 ////        filterMap.put("/admin/*", "authc");
-//
-//        //设置登出
-//        //filterMap.put("/logout", "logout");
-//
-//        bean.setFilterChainDefinitionMap(filterMap);
-//        //设置登录请求（认证界面）
-//        bean.setLoginUrl("/");
-//        //设置未授权页面
-//        bean.setUnauthorizedUrl("/noauth");
 
         return bean;
     }
