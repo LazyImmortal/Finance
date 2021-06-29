@@ -1,10 +1,6 @@
 package com.zsc.finance.common;
 
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
@@ -35,7 +31,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
 //        registry.addViewController("/tologin.html").setViewName("login");
         registry.addViewController("/index.html").setViewName("login");
         registry.addViewController("/toregister.html").setViewName("register");
-
+        registry.addViewController("/toForgetPassword.html").setViewName("forgetPassword");
         //登录成功后跳转到index.html（不存在index.html页面，但界面路径显示访问的是index.html） 然后视图解析到内部main.html界面
         //registry.addViewController("/admin/index.html").setViewName("admin/main");
        //registry.addViewController("/user/index.html").setViewName("user/main");
