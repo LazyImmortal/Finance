@@ -1,49 +1,13 @@
 #数据库连接配置
 spring:
-  datasource:
-    #用户名
-    username: root
-    #密码
-    password: 123456
-    # url需要指定时区serverTimezone为 GMT%2B8 ：北京时间东八区
-    url: jdbc:mysql://localhost:3306/finance?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=true
-    # 新版的驱动类改成了com.mysql.cj.jdbc.Driver
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    #配置druid数据库连接池时type这项必选
-    type: com.alibaba.druid.pool.DruidDataSource
-    #下面属性可选
-    druid:
-      initial-size: 5
-      min-idle: 5
-      max-active: 20
-      max-wait: 60000
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1 FROM DUAL
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      filters: stat,wall
-      use-global-data-source-stat: true
-      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  profiles:
+    active: jdbc, redis, mail
+
   #配置thymeleaf渲染视图
   thymeleaf:
     prefix: classpath:/templates/views/
     suffix: .html
     cache: false  # 关闭缓存
-  #Redis服务地址
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-
 
 # 分页配置
 pagehelper:
@@ -69,3 +33,5 @@ server:
     session:
       #session超时时间设置：2小时 7200秒
       timeout: PT2H
+
+

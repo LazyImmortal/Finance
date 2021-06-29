@@ -33,14 +33,20 @@ public class LoginController {
     @ResponseBody
     public Msg loginVerifyUsername(@PathVariable("username") String username) {
         User user = userService.selectUserByUsername(username, null);
+        Msg res = new Msg(); // 100 - 成功, 200 - 失败
         if (user != null) {
-            return Msg.success();
+            res.setCode(100);
+            res.setMsg(user.getEmail()); //获取用户邮箱
+            return res;
         }
         Admin admin = adminService.selectAdminByTerms(username, null);
         if (admin != null) {
-            return Msg.success();
+            res.setCode(100);
+            res.setMsg(user.getEmail()); //获取用户邮箱
+            return res;
         }
-        return Msg.fail();
+        res.setCode(200);
+        return res;
     }
 
     @GetMapping("/loginVerifyEmail/{email}")

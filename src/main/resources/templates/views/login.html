@@ -90,10 +90,16 @@
                     </button>
                 </div>
             </form>
-            <div style="margin-left: 100px">
-                <a th:href="@{/register}">还没有账号？去注册</a>
+            <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="left">
+                <a th:href="@{/forgetPassword}">
+                    <button id="login_lost_btn" type="button" class="btn btn-link">忘记密码</button>
+                </a>
             </div>
-
+            <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="right">
+                <a th:href="@{/register}">
+                    <button id="register_btn" type="button" class="btn btn-link">还没有账号？去注册</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -155,6 +161,7 @@
     function verifyUsername() {
         //发送ajax请求校验用户名是否可用
         var username = document.getElementById("username").value;
+        console.log(username);
         var lock = true;
         if (username === "") {
             show_validate_msg("#username", "error", "用户名为空");

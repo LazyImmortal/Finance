@@ -33,6 +33,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
         //项目运行后直接访问或访问index.html（不存在index.html页面）界面跳转到login登录界面
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/register").setViewName("register");
+        registry.addViewController("/forgetPassword").setViewName("forgetPassword");
+        registry.addViewController("/emailTemplate").setViewName("emailTemplate");
     }
 
     //配置拦截器
