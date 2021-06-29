@@ -12,7 +12,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,6 +50,14 @@ public class LoginController {
         res.setCode(200);
         return res;
     }
+
+//    @GetMapping("/modify")
+//    public ModelAndView modifyPassword(HttpServletRequest request) {
+//        String username = request.getParameter("username");
+//        return new ModelAndView("/views/resetPassword", "username", username);
+//    }
+
+
 
     @GetMapping("/loginVerifyEmail/{email}")
     @ResponseBody

@@ -2,12 +2,15 @@
 spring:
   profiles:
     active: jdbc, redis, mail
-
   #配置thymeleaf渲染视图
   thymeleaf:
     prefix: classpath:/templates/views/
     suffix: .html
     cache: false  # 关闭缓存
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
 
 # 分页配置
 pagehelper:

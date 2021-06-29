@@ -21,4 +21,6 @@ public interface UserService {
     User selectUserById(Integer id);
 
     Integer deleteUserById(Integer id);
+
+    Integer updateUserPassword(String username, String newPassword);
 }

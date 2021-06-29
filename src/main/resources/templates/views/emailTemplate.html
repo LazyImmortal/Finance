@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <!-- 引入bootstrap样式 -->
-    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css">
-    <!--图标库-->
-    <link th:href="@{/lyear/css/materialdesignicons.min.css}" rel="stylesheet" type="text/css"/>
-<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
-    <title>用户校验码</title>
+    <meta charset="UTF-8" />
+    <title>欢迎您加入博客园</title>
 </head>
 <body>
-<div><span th:text="${username}"></span> 女士/先生，您好
-</div>
-<p style="text-indent: 2em">你的用户验证码为:<span th:text="${code}" style="color: aqua;">
-</span>请妥善保管，不要泄露给其他人. </p>
+<div><span th:text="${username}"></span> 先生/女士，您好</div>
+
+<p style="text-indent: 2em"><span style="font-weight: bolder">聚宝盆团队</span>已接受你重置密码的请求，你的验证码为:<span th:text="${code}" style="color: aqua;">
+</span>请妥善保管，不要泄露给其他人。若非本人操作，请忽略此邮件</p>
 </body>
 </html>

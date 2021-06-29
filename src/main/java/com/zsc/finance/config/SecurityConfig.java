@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bootstrap/**", "images/**", "/js/**", "/lyear/**").permitAll()
                 .antMatchers("/asserts/**", "/error/404", "/error/500").permitAll()
                 .antMatchers("/register.html", "/forgetPassword.html", "/emailTemplate.html").permitAll()
+                .antMatchers("/resetPassword.html").permitAll()
 //                .anyRequest().authenticated()
                 .and().csrf().disable();//CSRF跨站请求伪造直接关闭
         // 2、自定义用户登录控制
