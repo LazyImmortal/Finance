@@ -28,7 +28,6 @@ var lightyear = function(){
      * @param $icon 图标，例如：'fa fa-user' 或 'glyphicon glyphicon-warning-sign'
      * @param $from 'top' 或 'bottom'
      * @param $align 'left', 'right', 'center'
-     * @author CaiWeiMing <314013107@qq.com>
      */
     var tips = function ($msg, $type, $delay, $icon, $from, $align) {
         $type  = $type || 'info';
