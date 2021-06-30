@@ -95,4 +95,14 @@ public class UserServiceImpl implements UserService {
     public Integer deleteUserById(Integer id) {
         return userMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    @Transactional
+    public Integer updateUserPassword(String username, String newPassword) {
+        User user = userMapper.selectByUsername(username);
+        System.out.println("UserServiceImpl 旧密码:" + user.getPassword());
+        user.setPassword(newPassword);
+        System.out.println("UserServiceImpl 新密码:" + user.getPassword());
+        return this.updateUser(user);
+    }
 }

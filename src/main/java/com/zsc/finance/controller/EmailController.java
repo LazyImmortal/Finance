@@ -28,11 +28,11 @@ public class EmailController {
             Context context = new Context();
             context.setVariable("username", username);
             String code = RandomString.make(5);
-            System.out.println("code: " + code);
+            System.out.println("code: " + code); //控制台打印验证码
             context.setVariable("code", code);
             String emailContent = templateEngine.process("emailTemplate", context);
-
-            //emailService.sendTemplateEmail(receiver, subject, emailContent);
+            //发送邮件，调试时可以注释掉
+            emailService.sendTemplateEmail(receiver, subject, emailContent);
 
             //emailService.sendEmail(receiver, "验证码", context.toString());
             res.setMsg(code); //验证码
