@@ -5,6 +5,7 @@ import com.zsc.finance.entity.UserExample;
 import com.zsc.finance.mapper.UserMapper;
 import com.zsc.finance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //@Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserByEmail(String email, String password) {
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CachePut(cacheNames = "user", key = "#user.id")
     public Integer updateUser(User user) {
         int result = userMapper.updateByPrimaryKeySelective(user);
         return result;
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //@Cacheable(cacheNames = "user", unless = "#result==null")
+    @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserById(Integer id) {
         User user = userMapper.selectByPrimaryKey(id);
         return user;
@@ -90,17 +91,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "user")
     public Integer deleteUserById(Integer id) {
         return userMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    @Transactional
-    public Integer updateUserPassword(String username, String newPassword) {
-        User user = userMapper.selectByUsername(username);
-        System.out.println("UserServiceImpl 旧密码:" + user.getPassword());
-        user.setPassword(newPassword);
-        System.out.println("UserServiceImpl 新密码:" + user.getPassword());
-        return this.updateUser(user);
     }
 }

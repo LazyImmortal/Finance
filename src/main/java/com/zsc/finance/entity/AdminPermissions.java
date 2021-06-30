@@ -1,5 +1,8 @@
 package com.zsc.finance.entity;
 
+import lombok.Data;
+
+@Data
 public class AdminPermissions {
     private Integer id;
 
@@ -10,44 +13,4 @@ public class AdminPermissions {
     private Integer permissionid;
 
     private Permissions permissions;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getAdminid() {
-        return adminid;
-    }
-
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
-    }
-
-    public Integer getPermissionid() {
-        return permissionid;
-    }
-
-    public void setPermissionid(Integer permissionid) {
-        this.permissionid = permissionid;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
-
-    public Permissions getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Permissions permissions) {
-        this.permissions = permissions;
-    }
 }
