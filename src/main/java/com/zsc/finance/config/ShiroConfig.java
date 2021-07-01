@@ -32,8 +32,8 @@ public class ShiroConfig {
        */
 
         Map<String, String> filterMap = new LinkedHashMap<>();
-//
-//        //授权
+
+        //授权
 //        filterMap.put("/user/add","perms[user:add]");
 //        filterMap.put("/user/update","perms[user:update]");
         //授权
@@ -45,13 +45,13 @@ public class ShiroConfig {
 //////        filterMap.put("/user/add","authc");
 //////        filterMap.put("/user/update","authc");
 //
-//        //对所有请求认证
-//        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
+        //对所有请求认证
+        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
 //        filterMap.put("/**", "authc");
 //
 //
-////        filterMap.put("/user/*", "authc");
-////        filterMap.put("/admin/*", "authc");
+//        filterMap.put("/user/*", "authc");
+//        filterMap.put("/admin/*", "authc");
 
         return bean;
     }

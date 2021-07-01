@@ -8,16 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)
     UserMapper userMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public User selectUserByUsername(String username, String password) {
@@ -66,12 +72,13 @@ public class UserServiceImpl implements UserService {
     public List<User> selectAllUser() {
         return userMapper.selectByExample(null);
     }
-
     @Override
     @Transactional
-    @CachePut(cacheNames = "user", key = "#user.id")
+//    @CachePut(cacheNames = "user", key = "#user.id")
     public Integer updateUser(User user) {
         int result = userMapper.updateByPrimaryKeySelective(user);
+        System.out.println("  :" + user.toString());
+        redisTemplate.opsForValue().set("user_" + user.getId(), user);
         return result;
     }
 
@@ -83,16 +90,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(cacheNames = "user", unless = "#result==null")
+//    @Cacheable(cacheNames = "user", unless = "#result==null")
     public User selectUserById(Integer id) {
-        User user = userMapper.selectByPrimaryKey(id);
-        return user;
+        Object object = redisTemplate.opsForValue().get("user_" + id);
+        if (object != null) {
+            return (User)object;
+        }
+        else {
+            User user = userMapper.selectByPrimaryKey(id);
+            redisTemplate.opsForValue().set("user_" + id, user, 1, TimeUnit.DAYS);
+            return user;
+        }
     }
 
     @Override
     @Transactional
-    @CacheEvict(cacheNames = "user")
+//    @CacheEvict(cacheNames = "user")
     public Integer deleteUserById(Integer id) {
+        redisTemplate.delete("user_" + id);
         return userMapper.deleteByPrimaryKey(id);
     }
 

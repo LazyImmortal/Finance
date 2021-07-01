@@ -46,8 +46,8 @@ public class UserController {
         User loginUser = (User) session.getAttribute("loginUser");
         User user = userService.selectUserById(loginUser.getId());
         model.addAttribute("user", user);
-
-        model.addAttribute("pageTopBarInfo", "个人信息界面");
+        System.out.println("进行了处理！！！！");
+//        model.addAttribute("pageTopBarInfo", "个人信息界面");
         return "/user/personal/profile";
     }
 
