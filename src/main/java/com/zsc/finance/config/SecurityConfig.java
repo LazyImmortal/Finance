@@ -42,38 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //  密码需要设置编码器
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-//        //  使用JDBC进行身份认证
-//        String userSQL ="select username, password from admin where username = ?";
-//        String authoritySQL ="select username, status from admin" +
-//                "t_user_authority ua where ua.user_id=u.id " +
-//                "and ua.authority_id=a.id and u.username =?";
-//        auth.jdbcAuthentication().passwordEncoder(encoder)
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery(userSQL);
     }
-
-//    //DafaultWebSecurituManager
-//    @Bean(name = "securityManager")
-//    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
-//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-//        //关联UserRealm
-//        securityManager.setRealm(userRealm);
-//
-//        return securityManager;
-//    }
-//
-//    //创建realm对象 ，需要自定义
-//    @Bean(name = "userRealm")
-//    public UserRealm userRealm() {
-//        return new UserRealm();
-//    }
-//
-//    //整合thymeleaf
-//    @Bean
-//    public ShiroDialect getShiroDialect() {
-//        return new ShiroDialect();
-//    }
 
     //重写configure(HttpSecurity http)方法，进行用户授权管理
     @Override

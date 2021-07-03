@@ -67,45 +67,45 @@
                 <div class="form-group has-feedback feedback-left">
                     <input type="password" placeholder="请输入密码" class="form-control"
                            id="password" name="password"/><span class="help-block"></span>
-                    <span class="mdi mdi-lock form-control-feedback"
-                          aria-hidden="true"></span>
-                </div>
-
-                <div id="captcha_note_parent"
-                     class="form-group has-feedback feedback-left row">
-                    <div class="col-xs-7">
-                        <input type="text" id="captcha" name="captcha"
-                               class="form-control" placeholder="请输入验证码">
-                    </div>
-                    <div class="col-xs-5">
-                        <canvas id="canvas" width="120" height="45"></canvas>
-                    </div>
-                    <span id="captcha_note_child" class="help-block"
-                          style="margin-left: 15px"></span>
-                </div>
-
-                <div class="form-group">
-                    <button id="login_btn" class="btn btn-block btn-primary"
-                            type="button">立即登录
-                    </button>
-                </div>
-            </form>
-            <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="left">
-                <a th:href="@{/forgetPassword}">
-                    <button id="login_lost_btn" type="button" class="btn btn-link">忘记密码</button>
-                </a>
-            </div>
-            <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="right">
-                <a th:href="@{/register}">
-                    <button id="register_btn" type="button" class="btn btn-link">还没有账号？去注册</button>
-                </a>
-            </div>
+            <span class="mdi mdi-lock form-control-feedback"
+            aria-hidden="true"></span>
         </div>
-    </div>
-</div>
 
-<!-- 引入jQuery和bootstrap的js -->
-<script th:src="@{/js/jquery.js}"></script>
+        <div id="captcha_note_parent"
+        class="form-group has-feedback feedback-left row">
+        <div class="col-xs-7">
+        <input type="text" id="captcha" name="captcha"
+        class="form-control" placeholder="请输入验证码">
+        </div>
+        <div class="col-xs-5">
+        <canvas id="canvas" width="120" height="45"></canvas>
+        </div>
+        <span id="captcha_note_child" class="help-block"
+        style="margin-left: 15px"></span>
+        </div>
+
+        <div class="form-group">
+        <button id="login_btn" class="btn btn-block btn-primary"
+        type="button">立即登录
+        </button>
+        </div>
+        </form>
+        <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="left">
+        <a th:href="@{/forgetPassword}">
+        <button id="login_lost_btn" type="button" class="btn btn-link">忘记密码</button>
+        </a>
+        </div>
+        <div style="width:50%;padding:0;margin:0;float:left;box-sizing:border-box;" align="right">
+        <a th:href="@{/register}">
+        <button id="register_btn" type="button" class="btn btn-link">还没有账号？去注册</button>
+        </a>
+        </div>
+        </div>
+        </div>
+        </div>
+
+            <!-- 引入jQuery和bootstrap的js -->
+            <script th:src="@{/js/jquery.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
 <script th:src="@{/js/md5.js}"></script>
 <!-- 点线粒子插件 -->
